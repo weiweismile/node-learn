@@ -7,6 +7,13 @@ Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。 同时提
 
 而维基百科说：“Node.js 是谷歌 V8 引擎、libuv平台抽象层 以及主体使用 Javscript 编写的核心库三者集合的一个包装外壳。” （注：V8是谷歌开发的，目前公认最快的 Javascript 解析引擎，libuv 是一个开源的、为 Node 定制而生的跨平台的异步 IO 库。）
 
+#### node与JavaScript的区别：
+JavaScript是由三部分组成的：Ecmascript5（定义了该门语言的一些基础，例如：语法、数据类型、结构以及常用的对象） + DOM（是基于Ecmascript5扩展出的一些操作页面的方法）+ BOM（是基于Ecmascript5扩展出的一些操作浏览器的方法）
+
+node：它也是以Ecmascript5为基础，扩展出一些操作系统或者网络的方法，比如：OS、file、net、database等
+
+因此两者基础相同，只是拓展出来可操作的对象不同。
+
 ### 2、node 的作用
 
 Node.js 的主要思路是：使用非阻塞的，事件驱动的 I/O 操作来保持在处理跨平台 (across distributed devices) 数据密集型实时应用时的轻巧高效。
