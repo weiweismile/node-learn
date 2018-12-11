@@ -19,5 +19,27 @@ a、内置模块
 如果传递给require函数的是NodeJS内置模块名称，不做路径解析，直接返回内部模块的导出对象，例如require('fs')。
 
 b、node_modules目录
+
 c、NODE_PATH环境变量
 
+NodeJS允许通过NODE_PATH环境变量来指定额外的模块搜索路径
+
+
+### 2、包（package）
+
+将多个子模块放在一起组成一个大模块就构成包。
+
+#### （1）入口模块
+在组成一个包的所有子模块中，需要有一个入口模块，入口模块的导出对象被作为包的导出对象。（就是exports对象）
+
+index.js
+
+当模块的文件名是index.js，加载模块时可以使用模块所在目录的路径代替模块文件路径
+
+package.json
+
+使用package.json来自定义入口文件路径
+
+命令行程序（Linux && Windows）
+
+把程序部署在/home/user/bin/node-echo.js
