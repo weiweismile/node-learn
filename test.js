@@ -14,4 +14,10 @@ fs.rmdir('/Users/weiweijiedetuhaomacji/node学习/test', function(err) {
 });
 
 console.log(__dirname, __filename);
-console.log(module);
+console.log(module.exports === exports);
+
+// var a = require('./test-node');
+
+// console.log(a);
+
+console.log(process.cwd());
