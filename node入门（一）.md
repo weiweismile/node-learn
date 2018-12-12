@@ -14,6 +14,8 @@ node：它也是以Ecmascript5为基础，扩展出一些操作系统或者网�
 
 因此两者基础相同，只是拓展出来可操作的对象不同。
 
+其次在JavaScript中，它的顶层对象是window，而node则是global。
+
 ### 2、node 的作用
 
 Node.js 的主要思路是：使用非阻塞的，事件驱动的 I/O 操作来保持在处理跨平台 (across distributed devices) 数据密集型实时应用时的轻巧高效。
