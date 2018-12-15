@@ -210,14 +210,105 @@ fs.rmdir('/tmp', function(err) {
 });
 
 
-// 遍历文件目录
-function traveDir(dir, callback) {
-    fs.readdirSync(dir).forEach(file => {
+// 同步深度遍历文件目录
+function traveDir(dir) {
+    fs.readdirSync(dir).forEach((file, index) => {
     const pathName = path.join(dir, file);
-        if (file.isDirctory) {
-            traveDir(file);
+        if (fs.statSync(pathName).isFile()) {
+            console.log(pathName, index);
         } else {
-            path.join(dir, file);
+            traveDir(pathName);
         }
     });
 }
+
+
+// 创建HTTP服务器
+const http = require('http');
+http.createServer(function(request, response) {
+    response.writeHead(200, { 'Content-Type': 'text/html' });
+    response.end('hello node.js');
+}).listen(8080);
+
+
+// 用zlib模块压缩HTTP响应体数据的例子
+const zlib = require('zlib');
+http.createServer(function(request, response) {
+    var i = 1024;
+    var data = '';
+    while(i>0){
+        data += '.';
+    }
+    console.log(request.headers, 999);
+    if ((request.headers['Content-Encoding'] || '').indexOf('gzip') > -1) {
+        zlib.gzip(data, function(err, data) {
+            if (err) return false;
+            response.writeHead(200, {
+                'Content-Type': 'text/plain',
+                'Content-Encoding': 'gzip',
+            });
+            response.end(data);
+        });
+    } else {
+        response.writeHead(200, {
+            'Content-Type': 'text/plain',
+        });
+        response.end(data);
+    }
+}).listen(8080);
+
+var options = {
+    hostname: 'www.example.com',
+    port: 80,
+    path: '/',
+    method: 'GET',
+    headers: {
+        'Accept-Encoding': 'gzip, deflate'
+    }
+};
+
+// 解压data
+http.request(options, function(response) {
+    var body = [];
+    response.on(data, function(chunk) {
+        console.log(chunk, 'chunk');
+        body.push(chunk);
+    });
+    response.on('end', function() {
+        body = Buffer.concat(body);
+        if (response.headers['content-encoding'] === 'gzip') {
+            zlib.gunzip(body, function(err, data) {
+                console.log(data.toString());
+            })
+        } else {
+            console.log(data.toString());
+        }
+    });
+}).end();
+
+
+// child_process
+var child_process = require('child_process');
+var util = require('util');
+function copy(source, target, callback) {
+    child_process.exec(util.format('cp -r %s/ %s', source, target), callback);
+}
+
+
+// stdout 
+function log() {
+    process.stdout.write(util.format.apply(util, arguments) + '\n');
+}
+
+
+// 计算a * b
+var a, b;
+console.log('请输入a的值:');
+process.stdin.on('data', function(chunk) {
+    if (!a) {
+        a = Number(chunk);        
+    } else {
+        b = Number(chunk);
+        process.stdout.write('a*b的结果是'+ a*b);
+    }
+});

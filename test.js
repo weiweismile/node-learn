@@ -1,23 +1,21 @@
-const fs = require('fs');
-// /Users/weiweijiedetuhaomacji/node学习/fs.md
+const http = require('http');
+// http.createServer(function(request, response) {
+//     response.writeHead(200, { 'Content-Type': 'text-plain' });
+//     response.end('hello node.js');
+// }).listen(8080);
 
-fs.rmdir('/Users/weiweijiedetuhaomacji/node学习/test', function(err) {
-    if(err) return console.log(err);
-    console.log('删除目录成功');
-    console.log('读取当前目录');
-    fs.readdir('/Users/weiweijiedetuhaomacji/node学习', function(err, files) {
-        if(err) return console.log(err);
-        files.forEach(file => {
-            console.log(file);
-        });
+
+http.createServer(function(request, response) {
+    console.log(request.method);
+    console.log(request.headers);
+    const body = [];
+    request.on('data', function(chunk) {
+        console.log(chunk, 'chunk');
+        body.push(chunk);
     });
-});
-
-console.log(__dirname, __filename);
-console.log(module.exports === exports);
-
-// var a = require('./test-node');
-
-// console.log(a);
-
-console.log(process.cwd());
+    request.on('end', function(request, response) {
+        console.log(body, 'body');
+        // body = Buffer.concat(body);
+        // console.log(body.toString());
+    });
+}).listen(8080);
