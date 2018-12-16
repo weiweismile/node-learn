@@ -181,6 +181,22 @@ fs.open('fs.md', 'r+', function(err, file) {
     });
 });
 
+
+// 判断文件是否存在
+function isExistFile(sourceFile, targetFile) {
+    fs.exists(targetFile, function(isExist) {
+        if (isExist) {
+            fs.appendFile(targetFile, '121212', function() {
+                console.log('append 成功');
+            });
+        } else {
+            fs.writeFile(targetFile, 'eeeee', function(){
+                console.log('添加文件成功');
+            });
+        }
+    });
+}
+
 // 创建目录
 // tmp 目录必须存在
 fs.mkdir('/tmp/test', function(err) {

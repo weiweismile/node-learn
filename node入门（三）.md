@@ -1,4 +1,4 @@
-# node基础知识三
+# node基础知识三 --- File(重要)
 
 ### 1、文件操作
 
@@ -7,6 +7,7 @@ writeFile & writeFileSync
 
 readFile & readFileSync
 
+> 异步不会阻塞后续的一个操作，同步则需要等到数据返回之后再执行后续的代码。回调函数中的fd，其实类似于定时器，返回的是一个数字。
 #### 大文件的copy，为了防止内存爆仓，最好还是使用边读边写的方式--pipe（流模式）
 
 createReadStream & createWriteStream
