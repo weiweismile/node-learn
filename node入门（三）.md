@@ -8,6 +8,21 @@ writeFile & writeFileSync
 readFile & readFileSync
 
 > 异步不会阻塞后续的一个操作，同步则需要等到数据返回之后再执行后续的代码。回调函数中的fd，其实类似于定时器，返回的是一个数字。
+
+* 如果同步读取文件发生错误，则需要用try...catch捕获该错误：
+```
+try {
+    var data = fs.readFileSync('sample.txt', 'utf-8');
+    console.log(data);
+} catch (err) {
+    // 出错了
+}
+
+```
+
+> 异步还是同步?
+
+>在fs模块中，提供同步方法是为了方便使用。那我们到底是应该用异步方法还是同步方法呢？由于Node环境执行的JavaScript代码是服务器端代码，所以，绝大部分需要在服务器运行期反复执行业务逻辑的代码，必须使用异步代码，否则，同步代码在执行时期，服务器将停止响应，因为JavaScript只有一个执行线程。服务器启动时如果需要读取配置文件，或者结束时需要写入到状态文件时，可以使用同步代码，因为这些代码只在启动和结束时执行一次，不影响服务器正常运行时的异步执行。
 #### 大文件的copy，为了防止内存爆仓，最好还是使用边读边写的方式--pipe（流模式）
 
 createReadStream & createWriteStream
