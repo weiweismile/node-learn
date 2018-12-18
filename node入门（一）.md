@@ -1,4 +1,4 @@
-# node基础知识一
+# node基础知识一 --- node是什么
 
 ### 1、node 是什么？
 Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。 同时提供了一些内置对象和方法。例如fs、http等内置对象，使得JS可以进行操作磁盘文件或搭建HTTP服务器。

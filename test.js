@@ -1,21 +1,23 @@
 const http = require('http');
-// http.createServer(function(request, response) {
-//     response.writeHead(200, { 'Content-Type': 'text-plain' });
-//     response.end('hello node.js');
-// }).listen(8080);
-
-
+const fs = require('fs');
+const url = require('url');
 http.createServer(function(request, response) {
-    console.log(request.method);
-    console.log(request.headers);
-    const body = [];
-    request.on('data', function(chunk) {
-        console.log(chunk, 'chunk');
-        body.push(chunk);
-    });
-    request.on('end', function(request, response) {
-        console.log(body, 'body');
-        // body = Buffer.concat(body);
-        // console.log(body.toString());
-    });
+    const pathName = url.parse(request.url).pathname;
+    const filePath = __dirname + pathName;
+    if (pathName === '/' || pathName === '/index') {
+        fs.readFile(filePath, function(err, chunk) {
+            if (err) {
+                response.writeHead('404', {
+                    'content-type': 'text/html'
+                });
+                response.write('not found');
+                response.end();
+            } else {
+                response.writeHead('200', {
+                    'content-type': 'text/html;charset=utf-8'
+                });
+                response.end('<h1>这是首页111</h1>');
+            }
+        });
+    }
 }).listen(8080);
