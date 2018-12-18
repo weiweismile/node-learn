@@ -12,3 +12,9 @@
 
 #### url
 * parse()
+
+
+#### querystring 模块 --- 用于解析与格式化 URL 的查询字符串
+
+* parse()
+* stringify()
