@@ -97,7 +97,7 @@ app.use('/public', express.static(__dirname + '/public'))
             email:{type:String,default:''}  
         })
         ```
-    * Model简述 (类似于mysql中的对象)
+    * Model简述 (类似于mysql中的对象构造函数)
     由Schema构造生成的模型，除了Schema定义的数据库骨架以外，还具有数据库操作的行为，类似于管理数据属性、行为的类。
     通过Schema创建Model:
         ```
@@ -105,8 +105,11 @@ app.use('/public', express.static(__dirname + '/public'))
         var PersonModel = db.model("person", PersonSchema);
         ```
         person：数据库中的集合名称，当我们对其添加数据时如果person已经存在，则会保存到其目录下，如果未存在，则会创建person集合，然后再保存数据。有了model，也就有了操作数据的能力。创建一个Model模型，需要指定两点：1，集合名称；2，集合的Schema结构对象。满足这两点，就可以操作数据库啦。
-
-    * Entity简述
+        > (1) 根据用户表结构，创建一个模型类（构造函数）。
+          (2) 注意：我们不是直接通过这个模型类对数据库进行操作，而是通过这个模型类构造一个对象，通过对象进行数据库的操作
+          (3) 注意：model下面有两种方法，一个是.的方法，表示是自己类的方法。一个是#的方法，表示要通过模型类构造出对象实例才能用的方法。
+          (4) 返回的是一个promise对象
+    * Entity简述（由上面的构造函数创建的对象，我们通过对象对数据库进行操作，而不是使用Schema）
         由Model创建的实体，使用save方法保存数据，Model和Entity都有能影响数据库的操作，但Model比Entity更具操作性。创建Entity成功后，Schema的属性就变成了Model和Entity的公共属性了。
         使用Model创建Entity：
         ```
@@ -118,5 +121,31 @@ app.use('/public', express.static(__dirname + '/public'))
             home:'beijing'
         });
         ```
+
+        ### 小结
+        ```
+        // 先通过schema，创建表结构
+        var schema = new mongoose.Schema({ name: 'string', size: 'string' });
+        // 再通过表结构，创建一个模型类
+        var Tank = mongoose.model('Tank', schema);
+        ```
+
+
+### post参数解析
+使用中间件body-parser进行参数的解析
+
+### cookies模块
+对登录状态进行保存
+？？？思考使用cookies和session的区别
+
+
+
+
+
+
+
+
+
+
 相关文档:
 [mongoDB与mongoose](https://www.cnblogs.com/web-fengmin/p/6435681.html)
