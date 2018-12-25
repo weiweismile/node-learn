@@ -1,0 +1,7 @@
+{
+  "name": "",
+  "version": "",
+  "dependencies": {
+    "node-xlsx": "^0.12.1"
+  }
+}
