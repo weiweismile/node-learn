@@ -33,8 +33,6 @@ function cb(val) {
     console.log(val);
 }
 
-// 创建发布-订阅者模式，使得属性改变时，通知到所有使用过该属性的函数或者视图
-
 // 创建一个vue对象, 这里的options.data代表的就是我们平时写在vue中的data
 class Vue{
     constructor(options) {
