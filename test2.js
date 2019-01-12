@@ -40,21 +40,23 @@
 //     }
 // });
 
-const fs = require('fs');
-function isExistFile(sourceFile, targetFile) {
-    fs.exists(targetFile, function(isExist) {
-        console.log(isExist, 999);
-        if (isExist) {
-            console.log(1);
-            fs.appendFile(targetFile, '121212', function() {
-                console.log('append 成功');
-            });
-        } else {
-            console.log(2);
-            fs.writeFile(targetFile, 'eeeee', function(){
-                console.log('添加文件成功');
-            });
-        }
-    });
-}
-isExistFile('test.js', 'test3.js');
+// const fs = require('fs');
+// function isExistFile(sourceFile, targetFile) {
+//     fs.exists(targetFile, function(isExist) {
+//         console.log(isExist, 999);
+//         if (isExist) {
+//             console.log(1);
+//             fs.appendFile(targetFile, '121212', function() {
+//                 console.log('append 成功');
+//             });
+//         } else {
+//             console.log(2);
+//             fs.writeFile(targetFile, 'eeeee', function(){
+//                 console.log('添加文件成功');
+//             });
+//         }
+//     });
+// }
+// isExistFile('test.js', 'test3.js');
+console.log(module.paths);
+console.log(require.extensions);
