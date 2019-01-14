@@ -1,3 +1,5 @@
+Vue的数据双向绑定，即MVVM的实现
+
 // 核心方法是使用Object.defineProperty(object, property, descriptor)进行对象属性的监听，让对象属性变成可观察模式。
 // 其中descriptor包含四个属性：enumerable:属性是否可枚举（默认为falses）；configurable:属性是否可被修改或者删除（默认为false）；
 // get: 获取属性的方法；set:设置属性的方法
@@ -15,15 +17,20 @@ function observer(option) {
 
 // defineReactive实现对象属性的响应系统。
 function defineReactive(obj, key, val) {
+    const dep = new Dep()
     Object.defineProperty(obj, key, {
         enumerable: true,
         configurable: true,
         get: function () {
+            if (Dep.target) {
+                dep.depend()
+            }
             return val;
         },
         set: function(newVal) {
             if (newVal === val) return;
-            cb(newVal);
+            dep.notify();
+            // cb(newVal);
         }
     })
 }
@@ -32,6 +39,7 @@ function defineReactive(obj, key, val) {
 function cb(val) {
     console.log(val);
 }
+
 
 // 创建一个vue对象, 这里的options.data代表的就是我们平时写在vue中的data
 class Vue{
